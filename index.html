@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <div id="first-chart" class="chart">
+        <canvas id="week-duration" style="height: 50; width: 100;"></canvas>
+    </div>
+
+    <div id="second-chart" class="chart">
+        <canvas id="calorieburn" style="height: 50; width: 100;"></canvas>
+        <p id="calorie-info" style="color: rgba(61, 27, 45, 0.8); margin-top: 10px;">Calorie burn of the day</p>
+    </div>
+
+    <div id="third-chart" class="chart">
+        <canvas id="week-calorie" style="height: 50; width: 100;"></canvas>
+    </div>
+
+    <div id="fourt-chart" class="chart">
+        <canvas id="session-calorie" style="height: 50; width: 100;"></canvas>
+        <p id="detailed-info" style="color: rgba(109, 15, 39, 0.8); margin-top: 10px;"></p>
+    </div>
+
+    <div id="fifth-chart" class="chart">
+        <canvas id="session-duration" style="height: 50; width: 100;"></canvas>
+        <p id="session-info" style="color: rgba(156, 104, 77, 1); margin-top: 10px;"></p>
+    </div>
+
+    <script src="monitoring.js"></script>
+</body>
+</html>

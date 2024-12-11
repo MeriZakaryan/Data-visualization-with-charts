@@ -1,0 +1,39 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    outline: none;
+}
+
+body{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.chart{
+    height: 500px;
+    width: 500px;
+}
+
+#second-chart{
+    height: 200px;
+    width: 200px;
+    margin-left: 100px;
+}
+
+#third-chart{
+    height: 400px;
+    width: 400px;
+    margin-left: 100px;
+}
+
+#fourth-chart{
+    height: 400px;
+    width: 400px;
+    margin-left: 100px;
+}
+#fifth-chart{
+    height: 500px;
+    width: 500px;
+    margin-left: 100px;
+}
