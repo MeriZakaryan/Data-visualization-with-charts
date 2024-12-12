@@ -29,22 +29,46 @@ async function getData(){
 
 function dataByMonths(data){
     const monthlyData = [];
-    let weeks = data.map(elem => String(elem.week));
-    weeks = Array(...new Set(weeks));
+   
+    data.forEach(session => {
+        const month = Math.ceil(session.week / 4);
+        // console.log(!monthlyData[month]);
+        if (!monthlyData[month]) {
+            monthlyData[month] = [];
+        }
+        
+        monthlyData[month].push(session);
+    });
     
-    let weekly = weeks.map(week => data.filter(elem => elem.week === +week))
-    console.log(weekly);
-    
+    monthlyData.shift();
 
-
+    return monthlyData;
 }
 
-getData().then(function(res) {    
-    dataByMonths(res);
+getData().then(function(result){
+    let dataMonthly = dataByMonths(result);
+    // console.log(dataMonthly);
+    const randomIndex = Math.floor(Math.random() * dataMonthly.length);    
+    let randomMonth = dataMonthly[randomIndex];
+    let monthlyPulse = randomMonth.map(day => +day.pulse);
+    let monthlyMaxPulse = randomMonth.map(day => +day.maxpulse);
+    let monthlyCalorie = randomMonth.map(day => +day.calories);
+    let monthlySession = randomMonth.map(day => +day.duration);
 
+        
+    const monthlyRate = document.getElementById('heart-rate-monthly');
+    heartRateDemonstration(monthlyRate, monthlyPulse, monthlyMaxPulse,  monthlySession, `Month ${randomIndex + 1}`);
+    
+    const monthCalorieBurn = document.getElementById('month-calorie');
+    label2 = `Calorie burn during month ${randomIndex + 1}`;
+    calorieBurn(monthCalorieBurn, label2, monthlyCalorie, monthlySession);
+    
+})
+
+getData().then(function(res) {    
     let weeks = res.map(elem => String(elem.week));
     weeks = Array(...new Set(weeks))
-    console.log(res);
+    // console.log(res);
     let duration = weeks.map(week => {
         let weekData = res.filter(elem => elem.week === +week);
         let meanDuration = weekData.reduce((sum, elem) => sum + elem.duration, 0) / weekData.length;
@@ -63,15 +87,20 @@ getData().then(function(res) {
     let randomWeekData = res.filter(elem => +elem.week === res[randomIndex].week)
     let duringweekCal = randomWeekData.map(week => +week.calories);
     let sessionDuration = randomWeekData.map(week => +week.duration);
-    
-
-    
+    let duringWeekPulse = randomWeekData.map(week => +week.pulse);
+    let duringWeekMaxPulse = randomWeekData.map(week => +week.maxpulse);
     
     weekDur(weeks, duration);
     duringWeekSession(sessionDuration, res[randomIndex].week);
     dailyColorieBurn(res[randomIndex].calories);
-    weekCalorieBurn(weekly_calories, weeks);
     sessionColorieBurn(duringweekCal, sessionDuration, res[randomIndex].week);
+
+    const label1 = 'Calorie burn during 3 months';
+    const weekColorie = document.getElementById("week-calorie");
+    calorieBurn(weekColorie, label1, weekly_calories, weeks);
+
+    const weeklyRate = document.getElementById('heart-rate-weekly');
+    heartRateDemonstration(weeklyRate, duringWeekPulse, duringWeekMaxPulse,  sessionDuration, `Week ${res[randomIndex].week}`);
 
     // console.log(res[randomIndex].week);
 });
@@ -166,14 +195,13 @@ function dailyColorieBurn(calorie){
     })
 }
 
-function weekCalorieBurn (weekly_calories, week){
-    const weekColorie = document.getElementById("week-calorie");
-    new Chart(weekColorie, {
+function calorieBurn (item, text, weekly_calories, week){
+    new Chart(item, {
         type: 'line',
         data: {
             labels: week,
             datasets: [{
-            label: 'Average calorie burn during the week',
+            label: text,
             data: weekly_calories,
             fill: false,
             borderColor: 'rgb(75, 192, 192)',
@@ -230,4 +258,41 @@ function sessionColorieBurn (kcals, session, weekNum){
                 }
             }}
       })
+}
+
+function heartRateDemonstration(item, pulseData, maxpulseData, sessionTime, num){
+    new Chart(item, {
+        type: 'line',
+        data:  { 
+            labels: sessionTime,
+            datasets: [
+            {
+                label: 'Max pulse rate',
+                data: maxpulseData,
+                borderColor: "rgba(168, 14, 14, 0.8)",
+                backgroundColor: "rgba(168, 14, 14, 0.8)",
+            },
+            {
+                label: 'Average pulse rate',
+                data: pulseData,
+                backgroundColor: "rgba(14, 78, 189, 0.8)",
+                borderColor: "rgba(14, 78, 189, 0.8)",
+            }
+            ]
+        },
+        options: {
+        responsive: true,
+        plugins: {
+            title: {
+            display: true,
+            text: `Pulse reached during each session(min): ${num}`,
+        },
+        scales: {
+            y: {
+                min: 10,
+                max: 200,
+            }}
+        }}
+    })
+
 }

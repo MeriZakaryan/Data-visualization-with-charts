@@ -13,27 +13,11 @@ body{
 .chart{
     height: 500px;
     width: 500px;
-}
-
-#second-chart{
-    height: 200px;
-    width: 200px;
-    margin-left: 100px;
+    margin-left: 30px;
 }
 
 #third-chart{
-    height: 400px;
-    width: 400px;
-    margin-left: 100px;
-}
-
-#fourth-chart{
-    height: 400px;
-    width: 400px;
-    margin-left: 100px;
-}
-#fifth-chart{
-    height: 500px;
-    width: 500px;
+    height: 200px;
+    width: 200px;
     margin-left: 100px;
 }
