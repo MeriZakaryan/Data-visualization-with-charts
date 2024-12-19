@@ -68,7 +68,7 @@ getData().then(function(result){
 getData().then(function(res) {    
     let weeks = res.map(elem => String(elem.week));
     weeks = Array(...new Set(weeks))
-    // console.log(res);
+    console.log(res);
     let duration = weeks.map(week => {
         let weekData = res.filter(elem => elem.week === +week);
         let meanDuration = weekData.reduce((sum, elem) => sum + elem.duration, 0) / weekData.length;
