@@ -184,7 +184,7 @@ function dailyColorieBurn(calorie){
             ],
             datasets: [{
             label: 'Calorie burn during session',
-            data: [calorie, 500],
+            data: [calorie, 500-calorie],
             backgroundColor: [
                 'rgba(194, 50, 87, 1)',
                 'rgba(156, 151, 149, 1)',
