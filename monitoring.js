@@ -61,7 +61,7 @@ getData().then(function(result){
     
     const monthCalorieBurn = document.getElementById('month-calorie');
     label2 = `Calorie burn during month ${randomIndex + 1}`;
-    calorieBurn(monthCalorieBurn, label2, monthlyCalorie, monthlySession);
+    calorieBurn(monthCalorieBurn, label2, monthlyCalorie, monthlySession, " min");
     
 })
 
@@ -97,7 +97,7 @@ getData().then(function(res) {
 
     const label1 = 'Calorie burn during 3 months';
     const weekColorie = document.getElementById("week-calorie");
-    calorieBurn(weekColorie, label1, weekly_calories, weeks);
+    calorieBurn(weekColorie, label1, weekly_calories, weeks, " week");
 
     const weeklyRate = document.getElementById('heart-rate-weekly');
     heartRateDemonstration(weeklyRate, duringWeekPulse, duringWeekMaxPulse,  sessionDuration, `Week ${res[randomIndex].week}`);
@@ -126,13 +126,17 @@ function weekDur(weekNum, time){
         scales: {
             y: {
                 beginAtZero: true,
-                ticks: {
-                        callback: function(value) {
-                            return value + 'm';
-                        }
+                title: {
+                    display: true,
+                    text: 'Session duration (min)'
+            }},
+            x: {
+                title: {
+                    display: true,
+                    text: "The number of week"
+                }
             }
-            }
-    }}
+        }}
     });
 }
 
@@ -159,15 +163,20 @@ function duringWeekSession(time_dur, num){
             scales: {
                 y: {
                     beginAtZero: true,
-                    ticks: {
-                            callback: function(value) {
-                                return value + 'm';
-                            }
+                    title: {
+                        display: true,
+                        text: 'Session duration (min)'
+                    }
+                },
+                x: {
+                    title: {
+                        display: true,
+                        text: "The number of session"
+                    }
                 }
-                }
+            }
         }}
-        });
-}
+)}
 
 function dailyColorieBurn(calorie){
     let text = document.getElementById('calorie-info').innerText
@@ -195,7 +204,8 @@ function dailyColorieBurn(calorie){
     })
 }
 
-function calorieBurn (item, text, weekly_calories, week){
+function calorieBurn (item, text, weekly_calories, week, measure){
+    let message = measure == " min" ? "Session duration (min)" : "Burned calorie within weeks";
     new Chart(item, {
         type: 'line',
         data: {
@@ -211,12 +221,17 @@ function calorieBurn (item, text, weekly_calories, week){
         scales: {
         y: {
             beginAtZero: true,
-            ticks: {
-                    callback: function(value) {
-                        return value + 'kcal';
-                    }
+            title: {
+                display: true,
+                text: 'Burned calorie (kcal)'
                 }
-            }
+            },
+        x: {
+            title: {
+                display: true,
+                text: message
+                }
+            },  
         }}
       })
 }
@@ -241,19 +256,17 @@ function sessionColorieBurn (kcals, session, weekNum){
             }]},
         options: {
             scales: {
-            x: {
-                ticks: {
-                        callback: function(value) {                            
-                            return this.getLabelForValue(value) + 'min';
-                        }
+                x: {
+                    title: {
+                        display: true,
+                        text: 'Session duration (min)'
                     }
-                },    
-            y: {
-                beginAtZero: true,
-                ticks: {
-                        callback: function(value) {
-                            return value + 'kcal';
-                        }
+                },   
+                y: {
+                    beginAtZero: true,
+                    title: {
+                        display: true,
+                        text: 'Burned calorie (kcal)'
                     }
                 }
             }}
@@ -286,13 +299,24 @@ function heartRateDemonstration(item, pulseData, maxpulseData, sessionTime, num)
             title: {
             display: true,
             text: `Pulse reached during each session(min): ${num}`,
-        },
+        }},
         scales: {
             y: {
                 min: 10,
                 max: 200,
-            }}
-        }}
+                title: {
+                    display: true,
+                    text: 'Heartbeat during a minute'
+                }
+            },
+            x: {
+                title: {
+                    display: true,
+                    text: 'Session duration (min)'
+                }
+            }
+            }
+        }
     })
 
 }
