@@ -117,8 +117,8 @@ function weekDur(weekNum, time){
         datasets: [{
             label: 'Average duration of sessions during the week',
             data: time,
-            backgroundColor: 'rgba(237, 156, 113, 1)',
-            borderColor: 'rgba(156, 104, 77, 1)',
+            backgroundColor: '#60A3BD',
+            borderColor: '#4D8297',
             borderWidth: 1
         }]
     },
@@ -154,8 +154,8 @@ function duringWeekSession(time_dur, num){
             datasets: [{
                 label: `Duration of the sessions during the week ${num}`,
                 data: time_dur,
-                backgroundColor: 'rgba(237, 156, 113, 1)',
-                borderColor: 'rgba(156, 104, 77, 1)',
+                backgroundColor: '#60A3BD',
+                borderColor: '#4D8297',
                 borderWidth: 1
             }]
         },
